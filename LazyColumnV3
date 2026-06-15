@@ -12,10 +12,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Chat
-import androidx.compose.material.icons.filled.Email
-import androidx.compose.material.icons.filled.Phone
-import androidx.compose.material.icons.filled.Wallet
+import androidx.compose.material.icons.filled.ShoppingBasket
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -26,24 +23,26 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 data class Item(
     val title: String,
+    val subtitle: String,
     val description: String,
+    val oldPrice: String,
+    val newPrice: String,
     val date: String,
-    val price: String,
     val icon: ImageVector
 )
 
 @Composable
-fun lazycolumn3() {
+fun lazycolumnV3() {
     val items = listOf(
-        Item("Customer Care", "Our customer care service line is available from 9am - 5pm weekdays and 9 - 5pm weekends - tap to call us today", "", "", Icons.Default.Phone),
-        Item("Send a package", "Request for a driver to pick up or deliver your package for you", "", "", Icons.Default.Email),
-        Item("Fund your wallet", "To fund your wallet as easy as ABC, make use of our fast technology and top-up your wallet today", "", "", Icons.Default.Wallet),
-        Item("Chats", "Search for available rider within your area", "", "", Icons.Default.Chat)
+        Item("№854632154", "Nike Air Max 270", "Essential", "$270.68", "$150.00", "7 мин назад", Icons.Default.ShoppingBasket),
+        Item("№325556516", "Nike Air Max 270", "Essential", "$364.95", "$260.00", "10:23", Icons.Default.ShoppingBasket),
+        Item("№215485412", "Nike Air Max", "Essential", "$378.76", "$268.00", "18:34", Icons.Default.ShoppingBasket)
     )
     val context = LocalContext.current
 
@@ -67,16 +66,26 @@ fun lazycolumn3() {
                         imageVector = it.icon,
                         contentDescription = null,
                         modifier = Modifier.size(40.dp),
-                        tint = Color.Blue
+                        tint = Color.Black
                     )
                     Spacer(modifier = Modifier.width(16.dp))
                     Column(
                         modifier = Modifier.weight(1f)
                     ) {
-                        Text(it.title, fontWeight = FontWeight.Bold, color = Color.Blue)
-                        Text(it.description, color = Color.Gray)
-                        Text(it.date, fontSize = 12.sp, color = Color.Gray)
-                        Text(it.price, fontWeight = FontWeight.Bold, color = Color.Black)
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = androidx.compose.foundation.layout.Arrangement.SpaceBetween
+                        ) {
+                            Text(it.title, fontWeight = FontWeight.Bold, color = Color.Blue)
+                            Text(it.date, fontSize = 12.sp, color = Color.Gray)
+                        }
+                        Text(it.subtitle, fontWeight = FontWeight.Bold)
+                        Text(it.description, color = Color.Gray, fontSize = 12.sp)
+                        Row {
+                            Text(it.oldPrice, color = Color.Gray, textDecoration = TextDecoration.LineThrough)
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(it.newPrice, fontWeight = FontWeight.Bold, color = Color.Black)
+                        }
                     }
                 }
             }
